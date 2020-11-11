@@ -1,0 +1,208 @@
+
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Python Level 2 Project">
+    <meta name="author" content="Master Bug">
+    <title>Database</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+    <link rel="stylesheet" href="/static/main.css">
+    <link rel="canonical" href="https://pyone.tw/">
+  </head>
+
+  <body>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="nav-link main_b" style="vertical-align:middle" href="/"><span>Tower</span></a>
+        
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/index.html"><span>Home </span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/code/index.html"><span>Code </span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/About Me/index.html"><span> About Me </span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/Usage/index.html"><span> Usage </span></a>
+              </li>
+            </ul>
+          </div>
+          </nav>
+
+      <main role="main">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <h2 class="page-title">資料表</h2>
+            </div>
+        </div>
+
+        <h3 class="text-center dbtable-name"><div>單字表 <span class="text-primary">WORDS</span></div></h3>
+        <div class="col-md-12">
+            <table class="table table-bordered table-schema">
+                <thead class="thead-light">
+                    <tr>
+                      <th>欄位</th>
+                      <th>資料型態</th>
+                      <th>名稱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>integer</td>
+                      <td>代碼</td>
+                    </tr>
+                    <tr>
+                      <td>WORD</td>
+                      <td>text</td>
+                      <td>字彙</td>
+                    </tr>
+                    <tr>
+                      <td>DEFINITIONS</td>
+                      <td>text</td>
+                      <td>意義</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <h3 class="text-center dbtable-name"><div>設定表 <span class="text-primary">SETTINGS</span></div></h3>
+        <div class="col-md-12">
+            <table class="table table-bordered table-schema">
+                <thead class="thead-light">
+                    <tr>
+                      <th>欄位</th>
+                      <th>資料型態</th>
+                      <th>名稱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>integer</td>
+                      <td>代碼</td>
+                    </tr>
+                    <tr>
+                      <td>TYPE</td>
+                      <td>text</td>
+                      <td>題型</td>
+                    </tr>
+                    <tr>
+                      <td>NUM_OF_QUESTIONS</td>
+                      <td>integer</td>
+                      <td>題數</td>
+                    </tr>
+                    <tr>
+                      <td>OPTION</td>
+                      <td>integer</td>
+                      <td>選項</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <h3 class="text-center dbtable-name"><div>考生表 <span class="text-primary">EXAMINEES</span></div></h3>
+        <div class="col-md-12">
+            <table class="table table-bordered table-schema">
+                <thead class="thead-light">
+                    <tr>
+                      <th>欄位</th>
+                      <th>資料型態</th>
+                      <th>名稱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>integer</td>
+                      <td>代碼</td>
+                    </tr>
+                    <tr>
+                      <td>ACCOUNT</td>
+                      <td>text</td>
+                      <td>帳號</td>
+                    </tr>
+                    <tr>
+                      <td>NAME</td>
+                      <td>text</td>
+                      <td>姓名</td>
+                    </tr>
+                    <tr>
+                      <td>GENDER</td>
+                      <td>integer</td>
+                      <td>性別</td>
+                    </tr>
+                    <tr>
+                      <td>BIRTH_YEAR</td>
+                      <td>integer</td>
+                      <td>出生年</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <br>
+
+        <h3 class="text-center dbtable-name"><div>成績表 <span class="text-primary">SCORES</span></div></h3>
+        <div class="col-md-12">
+            <table class="table table-bordered table-schema">
+                <thead class="thead-light">
+                    <tr>
+                      <th>欄位</th>
+                      <th>資料型態</th>
+                      <th>名稱</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                      <td>ID</td>
+                      <td>integer</td>
+                      <td>代碼</td>
+                    </tr>
+                    <tr>
+                      <td>ACCOUNT</td>
+                      <td>text</td>
+                      <td>帳號</td>
+                    </tr>
+                    <tr>
+                      <td>TYPE</td>
+                      <td>text</td>
+                      <td>題型</td>
+                    </tr>
+                    <tr>
+                      <td>SCORE</td>
+                      <td>integer</td>
+                      <td>成績</td>
+                    </tr>
+                    <tr>
+                      <td>DATE_TIME</td>
+                      <td>text</td>
+                      <td>測驗日期</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+      </main>
+
+      <hr>
+      <footer class="footer">
+        <p>&copy; 2019 碼寶程式教育中心</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
+    <script src="/static/main.js"></script>
+  </body>
+</html>

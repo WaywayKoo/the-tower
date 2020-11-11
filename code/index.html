@@ -1,0 +1,665 @@
+
+<!doctype html>
+<html lang="zh-Hant-TW">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=0, minimum-scale=1, maximum-scale=1, shrink-to-fit=no">
+    <meta name="description" content="Python Level 2 Project">
+    <meta name="author" content="Master Bug">
+    <title>程式碼 | Tower</title>
+    <link rel="icon" href="/favicon.png">
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">    <link rel="stylesheet" href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.1/styles/tomorrow-night.min.css">
+    <link rel="stylesheet" href="/Static/main.css">
+    <link rel="canonical" href="">
+  </head>
+
+  <body>
+
+    <div class="container">
+        <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
+            <a class="nav-link main_b" style="vertical-align:middle" href="/"><span>Tower</span></a>
+        
+          <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+            <ul class="navbar-nav mr-auto">
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/index.html"><span>Home </span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/code/index.html"><span>Code </span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/About Me/index.html"><span> About Me </span></a>
+              </li>
+              <li class="nav-item active">
+                <a class="nav-link small_b" style="vertical-align:middle" href="/Usage/index.html"><span> Usage </span></a>
+              </li>
+            </ul>
+          </div>
+          </nav>
+
+      <main role="main">
+        <div class="row">
+            <div class="col-lg-12 text-center">
+                <br><h2 class="page-title">程式碼</h2>
+            </div>
+        </div>
+
+        <h3 class="text-primary">Main code</h3>
+        <pre>
+            <code class="python">
+                import time
+                import random
+                from mydb import DB
+                
+                class Game:
+                    def __init__(self):
+                        self.menu_title = 'The Tower: --'
+                        self.account = ''
+                        self.islogin = False
+                        self.all_items = ''
+                        self.all_settings = db.get_basic_all_settings()
+                        self.hh = self.all_settings['player_h']
+                        self.b1_hh = self.all_settings['b1_h']
+                        self.b2_hh = 100000000000000
+                        self.menu = {
+                            'a':'登入',
+                            'b':'註冊',
+                            'c':'遊玩',
+                            'q':'離開',
+                        }
+                        self.menu_func = {
+                            'a': lambda c, s: self.login(c, s),
+                            'b': lambda c, s: self.make_acc(c, s),
+                            'c': lambda c, s: self.start_game(),
+                            'q': lambda c, s: self.show_words_randomly(c, s),
+                        }
+                        self.divider = '='*20
+                
+                    def start_game(self):
+                        if self.islogin:
+                            print('|')
+                            print('|')
+                            print('|')
+                            print('|')
+                            print('|')
+                            print('|')
+                            print('|')
+                            print('+=========================+')
+                            if self.boss_1():
+                                self.boss_2()
+                
+                        else:
+                            print('Login First')
+                
+                    def login(self, db, func_title):
+                        """ 登入
+                        """
+                        account_input = input('請輸入帳號: ')
+                        if db.check_if_player_exists(account_input):
+                            self.account = account_input
+                            print(db.get_player_info(self.account))
+                            self.islogin = True
+                            self.all_stuff = db.get_player_all_settings(self.account)
+                        else:
+                            print('LOGIN IN FAIL')
+                            self.islogin =  False
+                
+                    def make_acc(self, db, func_title):
+                        account_input = input('請輸入帳號: ')
+                        db.add_player(account_input, 'insert')
+                
+                    def show_menu(self):
+                        """ 主選單
+                        """
+                        print(self.divider)
+                        if self.account == '':
+                            print(self.menu_title, '尚未登入')
+                        else:
+                            print(self.menu_title, self.account)
+                        print(self.divider)
+                        for fid, fname in self.menu.items():
+                            print('%s:%s' % (fid, fname))
+                        print(self.divider)
+                        opt = input('請選擇: ').lower()
+                        if opt in self.menu.keys():
+                            return opt, self.menu[opt]
+                        else:
+                            return '', '無此功能！'
+                
+                    def start(self):
+                        print("Welcome to the TOWER!~~\n")
+                        time.sleep(2)
+                        print("You are a warrior, you goal is to kill the FINAL BOSS\n")
+                        time.sleep(2)
+                        print("But before you fight the BOSS\nYou will need to fight or to solve a lot of things or BOSS\n\n")
+                
+                    def check(self):
+                        print('CHECK:\n')
+                        print ('++++++++++++++++++++++++')
+                        print('YOU:')
+                        print ('Your attack damage:', self.all_settings['atkp'])
+                        print('Your Armor: ', self.all_settings['defp'])
+                        print ('++++++++++++++++++++++++')
+                        print ('BOSS health: ', self.b1_hh)
+                        print ('BOSS attack damage: ', self.all_settings['b1_atk'])
+                        print ('BOSS armor: ', self.all_settings['b1_def'])
+                        print ('++++++++++++++++++++++++')
+                        print('\n')
+                        time.sleep(5)
+                
+                    def battle(self):
+                        print("===================")
+                        print ("Health: {}\n" .format(self.hh))
+                        # print ("Mana: {}\n" .format(self.hh))
+                        # print ("Layer: %s" %self.all_stuff['layer'])
+                        print("===================")
+                        print("1 -- Pysical Attack")
+                        print("2 -- Magic Attack")
+                        print("3 -- Item")
+                        print("4 -- Computer")
+                        print("5 -- Check")
+                        print("6 -- Stop")
+                        print("===================")
+                        choice = input('')
+                        if choice.isdigit():    
+                            choice = int(choice)
+                            if choice == 1:
+                                self.fight_p()
+                            elif choice == 2:
+                                self.fight_m()
+                            elif choice == 3:
+                                self.item()
+                            elif choice == 4:
+                                self.computer()
+                            elif choice == 5:
+                                self.check()
+                            elif choice == 6:
+                                self.stop_game()
+                        else:
+                            print("???? I DON'T GET  IT ????")       
+                
+                    def fight_p(self):
+                        list_cr = ['no', 'no', 'no', 'no', 'no', 'cr']
+                        cr = random.choice(list_cr)
+                        if cr == 'cr':
+                            dama = self.all_settings['atkp'] * 2.5
+                            print('Critical Strike')
+                        elif cr == 'no':
+                            dama = random.randint(self.all_settings['atkp'] - 3, self.all_settings['atkp'] + 3)
+                        self.b1_hh = self.b1_hh - (dama - self.all_settings['b1_def'])
+                        print('BOSS health:', self.b1_hh)
+                        print('You deal:', dama)
+                
+                    def fight_m(self):
+                        dama = self.all_settings['matkp'] * 1.5
+                        if dama >= 0:
+                            dama = 1
+                        self.b1_hh = self.b1_hh - (dama - self.all_settings['b1_def'])
+                        print('BOSS health:', self.b1_hh)
+                        print('You deal:', dama)
+                
+                    def item(self):
+                        print("===================")
+                        for key, val in self.all_stuff.items():
+                            print('{}:{}'.format(key, val))
+                        print("===================")
+                        it_c = input('What\'s your choice \n')
+                        if it_c ==  'cake' and 'cake' in self.all_stuff.keys():
+                            self.hh = self.hh + self.all_stuff['cake']
+                            del self.all_stuff['cake']
+                        elif it_c == 'water' and 'water' in self.all_stuff.keys():
+                            self.hh = self.hh + self.all_stuff['water']
+                            del self.all_stuff['water']
+                        elif it_c == 'pie' and 'pie' in self.all_stuff.keys():
+                            self.hh = self.hh + self.all_stuff['pie']
+                            del self.all_stuff['pie']
+                        elif it_c == 'crazy juice' and 'crazy juice' in self.all_stuff.keys():
+                            self.hh = self.hh + self.all_stuff['crazy juice']
+                            del self.all_stuff['crazy juice']
+                        elif it_c == 'banana' and 'banana' in self.all_stuff.keys():
+                            self.hh = self.hh + self.all_stuff['banana']
+                            del self.all_stuff['banana']
+                        else:
+                            print("you didn't have that thing")
+                        if self.hh >= 200:
+                            self.hh = 200
+                
+                    def boss_1(self):
+                        time.sleep(2)
+                        print("You met an ape with sword")
+                        time.sleep(1)
+                        print("seems like a weak monster")
+                        time.sleep(1)
+                        while True:
+                            if self.hh <= 0:
+                                break
+                            elif self.b1_hh <= 0:
+                                break
+                            self.battle()
+                            self.b_dama()
+                            continue
+                        return True
+                
+                    def boss_2(self):
+                        print("You met a ghost, attack doesn't work on him")
+                        print("Ghost: CHYN CQRB OXA CQN FRW")
+                        ans_2 = 'TYPE THIS FOR THE WIN'
+                        while True:
+                            if self.hh <= 0:
+                                break
+                            elif self.b2_hh <= 0:
+                                break
+                            ans_player = input('WHAT IS THE GHOST SAYING?????')
+                            if ans_player == ans_2:
+                                print('BOSS IS DEAD')
+                                self.b2_hh = -10000000000000
+                            self.b_dama()
+                            continue
+                
+                    def b_dama(self):
+                        self.all_settings['b1_def'] = random.randint(self.all_settings['b1_atk'] - 3, self.all_settings['b1_atk'] + 3)
+                        BB_D = self.all_settings['b1_def'] - self.all_settings['defp']
+                        self.hh = self.hh - (self.all_settings['b1_def'] - self.all_settings['defp'])
+                        print('The Boss deal {} damage to you'.format (BB_D))
+                
+                        
+                    def computer(self):
+                        def encrypt():
+                            the_num = str(input('encrypt: \n'))
+                            ans_number = []
+                            key = int(input('input a key\n'))
+                            for i in range(len(the_num)):
+                                if the_num[i].isalpha() == True:
+                                    connect = alphabet.find(the_num[i].lower())
+                                    ans = (connect + key) % 26
+                                    ans_number.append(alphabet[ans])
+                                    final = (''.join(ans_number))
+                                else:
+                                    ans_number.append(the_num[i]) 
+                            print(final.upper())
+                        def decrypt():
+                            the_num = str(input('input a string\n'))
+                            ans_number = []
+                            key = int(input('input a key\n'))
+                            for i in range(len(the_num)):
+                                if the_num[i].isalpha() == True:
+                                    connect = alphabet.find(the_num[i].lower())
+                                    ans = (connect - key) % 26
+                                    ans_number.append(alphabet[ans])
+                                    final = (''.join(ans_number))
+                                else:
+                                    ans_number.append(the_num[i]) 
+                            print(final.upper())
+                        def brutal_de():
+                            the_num = str(input('input a string\n'))
+                            for j in range (26):
+                                ans_number = []
+                                for i in range(len(the_num)):
+                                    if the_num[i].isalpha() == True:
+                                        connect = alphabet.find(the_num[i].lower())
+                                        ans = (connect - j) % 26
+                                        ans_number.append(alphabet[ans])
+                                        final = (''.join(ans_number))
+                                    else:
+                                        ans_number.append(the_num[i]) 
+                                print("Key {}:  {}".format( j, final.upper()))
+                        import random
+                        t1 = 0
+                        t2 = 0
+                        t3 = 0
+                        while True:
+                            print('\n')
+                            print('YOU CAN ENCRYPT AND DCRYPT THINGS FORM THIS COMPUTER\n')
+                            alphabet = 'abcdefghijklmnopqrstuvwxyz'
+                            choose = str(input('1:encrypt 2:decrypt 3:brutal e:exit\n'))
+                            if choose == '1':
+                                t1 = t1 + 1
+                                encrypt()
+                            elif choose == '2':
+                                t2 = t2 + 1
+                                decrypt()
+                            elif choose == '3':
+                                t3 = t3 + 1
+                                brutal_de()
+                                continue
+                            elif choose == 'e':
+                                break
+                        print ('encrypt time：{}'.format(t1))
+                        print ('decrypt time：{}'.format(t2))
+                        print ('brutal time：{}'.format(t3))
+                            
+                
+                
+                with DB() as db:
+                    player = Game()
+                    while True:
+                        func_id, func_name = player.show_menu()
+                        if func_id == 'q':
+                            break
+                        elif func_id == '':
+                            print(func_name)
+                        else:
+                            player.menu_func[func_id](db, func_name)
+                        print()
+            </code>
+        </pre>
+
+        <h3 class="text-primary">Gamecenter</h3>
+        <pre>
+            <code class="python">
+
+                from mydb import DB
+
+                class Gcenter:
+                    def __init__(self):
+                        self.menu_title = 'Game Center'
+                        self.menu = {
+                            'a':'參測玩家列表',
+                            'b':'玩家設定列表',
+                            'c':'個人成績查詢',
+                            'q':'離開',
+                        }
+                        self.menu_func = { 
+                            'a': lambda c, s: self.show_player(c, s),
+                            'b': lambda c, s: self.search_set(c, s),
+                        }
+                        self.divider = '='*20
+                    def search_set(self, db, func_title):
+                        all_settings = db.gc_show_everyw()
+                        print(all_settings)
+                
+                    def show_menu(self):
+                        print(self.divider)
+                        print(self.menu_title)
+                        print(self.divider)
+                        for fid, fname in self.menu.items():
+                            print('%s:%s' % (fid, fname))
+                        print(self.divider)
+                        opt = input('請選擇: ').lower()
+                        if opt in self.menu.keys():
+                            return opt, self.menu[opt]
+                        else:
+                            return '', '無此功能！'
+                
+                    def show_player(self, db, func_title):
+                        """ 參測考生列表
+                        """
+                        db.list_all_gamer()
+                        return func_title
+                
+                    def score_list(self, db, func_title):
+                        """ 個人成績查詢
+                        """
+                        while True:
+                            qaccount = input('請輸入帳號 (exit.離開): ')
+                            if qaccount == 'exit':
+                                break
+                            db.list_scores_by_account(qaccount)
+                        return func_title    
+                
+                # entry point
+                with DB() as db:
+                    player = Gcenter()
+                    while True:
+                        func_id, func_name = player.show_menu()
+                        if func_id == 'q':
+                            break
+                        elif func_id == '':
+                            print(func_name)
+                        else:
+                            player.menu_func[func_id](db, func_name)
+                        print()
+                
+            </code>
+        </pre>
+
+
+        <h3 class="text-primary">Controll - Database</h3>
+        <pre>
+            <code class="python">
+                class DB:
+                def __init__(self):
+                    self.conn = None
+                    self.cur = None
+                    self.title_side = '-'*12
+            
+                def __enter__(self):
+                    self.open()
+                    return self
+            
+                def __exit__(self, exc_type, exc_value, traceback):
+                    self.close()
+                    return False
+            
+                def open(self):
+                    """ 開啟資料庫連線
+                    """
+                    if self.conn is None:
+                        import sqlite3
+                        self.conn = sqlite3.connect('gamett.db')
+                        self.cur = self.conn.cursor()
+                    return True
+            
+                def close(self):
+                    """ 關閉資料庫連線
+                    """
+                    if self.conn is not None:
+                        self.conn.close()
+                        self.conn = None
+                    return True
+            
+                def count_word(self):
+                    """ 計算單字數
+                    """
+                    self.cur.execute("SELECT COUNT(*) FROM WORDS")
+                    return self.cur.fetchone()[0]
+            
+                def get_max_id(self, arg_table):
+                    """ 取得資料最新編號
+                    """
+                    self.cur.execute("SELECT MAX(ID) FROM {}".format(arg_table))
+                    return self.cur.fetchone()[0] + 1
+            
+                def list_all_words(self):
+                    """ 單字列表
+                    """
+                    self.cur.execute("SELECT * FROM WORDS")
+                    all_rows = self.cur.fetchall()
+                    for row in all_rows:
+                        print(row)
+                    print()
+            
+                def generate_dict_words(self):
+                    """ 設定單字字典
+                    """
+                    self.cur.execute("SELECT WORD, DEFINITIONS FROM WORDS")
+                    all_words = self.cur.fetchall()
+                    list_words = [dict(WORD=row[0], DEFS=row[1]) for row in all_words]
+                    return list_words
+            
+            
+                def get_player_info(self, account):
+                    """ 查詢考生資訊
+                    """
+                    self.cur.execute("SELECT * FROM PLAYER WHERE ID=?", (account,))
+                    examinee_info = self.cur.fetchone()
+                    return examinee_info
+            
+                def list_all_gamer(self):
+                    self.cur.execute("SELECT * FROM PLAYER")
+                    all_rows = self.cur.fetchall()
+                    for row in all_rows:
+                        print(row)
+                    print()
+            
+                def check_if_player_exists(self, arg_account):
+                    self.cur.execute("SELECT COUNT(*) FROM PLAYER WHERE ID=?", (arg_account, ))
+                    if self.cur.fetchone()[0] == 1:
+                        return True
+                    else:
+                        return False
+            
+                def add_player(self, account_id, action):
+                    """ 增修player
+                    """
+                    data_ok = True
+                    full_name = input('real name: ')
+                    if full_name == 'q':
+                        data_ok  = False
+            
+                    gender = input('性別(F.女性 M.男性): ').upper()
+                    if gender == 'F':
+                        gender = 0
+                    elif gender == 'M':
+                        gender = 1
+                    else:
+                        data_ok = False
+            
+                    birth_year = input('生日:(xxxx/xx/xx) ')
+            
+                    # 資料無誤，准許註冊            
+                    if data_ok:
+                        if action == 'insert':
+                            self.cur.execute("INSERT INTO PLAYER VALUES (?, ?, ?, ?)", 
+                                (account_id, full_name, gender, birth_year))
+                            print('註冊成功，可play')
+                            self.cur.execute(" INSERT INTO SAVE_FILE VALUES (?, 'item', 'cake', 30)", (full_name,))
+                            self.cur.execute(" INSERT INTO SAVE_FILE VALUES (?, 'item', 'pie', 20 )", (full_name,))
+                            self.cur.execute(" INSERT INTO SAVE_FILE VALUES (?, 'item', 'crazy juice', 100 )", (full_name,))
+                            self.cur.execute(" INSERT INTO SAVE_FILE VALUES (?, 'item', 'banana', 15 )", (full_name,))
+                            self.cur.execute(" INSERT INTO SAVE_FILE VALUES (?, 'item', 'water', 10 )", (full_name,))
+                            self.cur.execute(" INSERT INTO SAVE_FILE VALUES (?, 'set', 'layer', 1 )", (full_name,))
+                        elif action == 'update':
+                            self.cur.execute("UPDATE PLAYER SET NAME=?, GENDER=?, BIRTH=? WHERE ID=?", 
+                                (full_name, gender, birth_year, account_id))
+                        self.conn.commit()
+                        print('註冊成功，可play')
+                        return True
+                        
+            
+                    else:
+                        print ('FAIL')
+                                    
+            
+            
+                def get_basic_all_settings(self):
+                    self.cur.execute("SELECT ID, VALUE FROM SETTINGS")
+                    all_settings = self.cur.fetchall()
+                    return dict(all_settings)
+            
+                def get_player_all_settings(self, my_account):
+                    print(my_account)
+                    self.cur.execute("SELECT TYPE_NAME, TYPE_VALUE FROM SAVE_FILE WHERE ID = ? AND TYPE = 'item'", (my_account,))
+                    all_items = self.cur.fetchall()
+                    return dict(all_items)
+            
+                def gc_show_every(self):
+                    self.cur.execute("SELECT * FROM SAVE_FILE")
+                    every_player = self.cur.fetchall()
+                    print(every_player)
+            
+            
+                # def list_scores_by_account(self, account):
+                #     """ 個人成績查詢
+                #     """
+                #     account_like = ''.join(('%', account, '%'))
+                #     self.cur.execute("SELECT * FROM SCORES WHERE ACCOUNT LIKE ?", (account_like,))
+                #     all_rows = self.cur.fetchall()
+                #     if len(all_rows) > 0:
+                #         for row in all_rows:
+                #             print(row)
+                #     else:
+                #         print(account, '查無任何成績')
+            
+                # def score_summary(self):
+                #     """ 測驗成績統計
+                #     """
+                #     print(self.title_side, '測驗人數及平均分數', self.title_side)
+                #     self.cur.execute("SELECT TYPE, COUNT(*), AVG(SCORE) FROM SCORES GROUP BY TYPE")
+                #     all_rows = self.cur.fetchall()
+                #     if len(all_rows) > 0:
+                #         for row in all_r
+            </code>
+        </pre>
+        <h3 class="text-primary">Database</h3>
+        <pre>
+            <code class="python">
+                import os
+                try:
+                    os.unlink('gamett.db')
+                except:
+                    print('首次建檔')
+                
+                import sqlite3
+                conn = sqlite3.connect('gamett.db')
+                cur = conn.cursor()
+                
+                def show_all_rows(all_rows):
+                    for row in all_rows:
+                        print(row)
+                    print()
+                
+                # 單字表
+                cur.execute('''CREATE TABLE SETTINGS (ID text, VALUE integer)''')
+                # 單字表初始資料
+                cur.execute("INSERT INTO SETTINGS VALUES ('defp', 5)")
+                cur.execute("INSERT INTO SETTINGS VALUES ('atkp', 20)")
+                cur.execute("INSERT INTO SETTINGS VALUES ('matkp', 10)")
+                cur.execute("INSERT INTO SETTINGS VALUES ('player_h', 100)")
+                cur.execute("INSERT INTO SETTINGS VALUES ('b1_def', 5)")
+                cur.execute("INSERT INTO SETTINGS VALUES ('b1_atk', 10)")
+                cur.execute("INSERT INTO SETTINGS VALUES ('b1_h', 100)")
+                
+                
+                cur.execute('''CREATE TABLE PLAYER (ID text, NAME text, GENDER integer, BIRTH text)''')
+                cur.execute(" INSERT INTO PLAYER VALUES ('GOD the WK', 'William Ku' , '1', '2005/2/10') ")
+                
+                cur.execute('''CREATE TABLE SAVE_FILE (ID text, TYPE text, TYPE_NAME text, TYPE_VALUE integer)''')
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'item', 'cake', 30)")
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'item', 'pie', 20 )")
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'item', 'crazy juice', 100 )")
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'item', 'banana', 15 )")
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'item', 'water', 10 )")
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'set', 'layer', 1)")
+                cur.execute(" INSERT INTO SAVE_FILE VALUES ('GOD the WK', 'set', 'mana', 100)")
+                conn.commit()
+                
+                # 查詢player
+                cur.execute("SELECT * FROM PLAYER")
+                show_all_rows(cur.fetchall())
+                
+                cur.execute("SELECT * FROM SAVE_FILE")
+                show_all_rows(cur.fetchall())
+                # 查詢設定表
+                cur.execute("SELECT * FROM SETTINGS")
+                show_all_rows(cur.fetchall())
+                
+                # # 成績表
+                # cur.execute('''CREATE TABLE SCORES
+                #     (ID integer, ACCOUNT text, TYPE text, SCORE integer, DATE_TIME text)''')
+                
+                show_all_rows(cur.fetchall())
+                
+                # 查詢成績表
+                # cur.execute("SELECT * FROM SCORES")
+                conn.close()
+                
+            </code>
+        </pre>
+      </main>
+
+      <hr>
+      <footer class="footer">
+        <p>&copy; The Tower</p>
+      </footer>
+    </div> <!-- /container -->
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/9.14.1/highlight.min.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <script src="/static/main.js"></script>
+  </body>
+</html>

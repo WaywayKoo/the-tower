@@ -1,0 +1,103 @@
+/* Move down content because we have a fixed navbar that is 3.5rem tall */
+body {
+  padding-top: 3.5rem;
+}
+
+.jumbotron {
+  background-image:url('/main.png');
+}
+
+.small_b{
+  
+}
+
+.main_b {
+  margin: 5px 50px 5px 20px !important;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #f4511e;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: px;
+  padding: 15px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.main_b span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.main_b span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+
+.main_b:hover span {
+  padding-right: 25px;
+  color: white;
+}
+
+.main_b:hover span:after {
+  opacity: 1;
+  right: 0;
+}
+
+.main_a {
+  margin: 5px 50px 5px 20px !important;
+  display: inline-block;
+  border-radius: 4px;
+  background-color: #0051ffbd;
+  border: none;
+  color: white;
+  text-align: center;
+  font-size: px;
+  padding: 15px;
+  width: 100px;
+  transition: all 0.5s;
+  cursor: pointer;
+  margin: 5px;
+}
+
+.main_a span {
+  cursor: pointer;
+  display: inline-block;
+  position: relative;
+  transition: 0.5s;
+}
+
+.main_a span:after {
+  content: '\00bb';
+  position: absolute;
+  opacity: 0;
+  top: 0;
+  right: -20px;
+  transition: 0.5s;
+}
+.main_a:hover  {
+  background-color: #0051ff;
+}
+.main_a:hover span {
+  padding-right: 25px;
+  color: white;;
+}
+
+.main_a:hover span:after {
+  opacity: 1;
+  right: 0;
+  background-color: #0051ffb9;
+}
+
+a.nav-link {
+    margin: 10px 20px;
+}

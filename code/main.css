@@ -1,0 +1,104 @@
+body, button, html, input, select, textarea {
+    font-family: "Microsoft JhengHei";
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-weight: 400;
+}
+
+
+main h2.page-title {
+    margin: 80px 0 60px;
+}
+
+footer {
+	margin: 30px 0 40px 0;
+}
+
+h1.header-title {
+    padding: 5px 0;
+    font-size: 28px;
+    font-weight: 700;
+}
+
+pre code {
+    font-size: 18px !important;
+    margin-left: -80px;
+}
+
+.jumbotron {
+    margin-top: 80px;
+    background-color: #3ab598;
+}
+
+.jumbotron h2 {
+    color: #fff;
+}
+
+.jumbotron p.lead {
+    color: #e3fbf5;
+}
+
+.small-sec {
+    margin: 60px 0 10px 0;
+}
+
+.text-desc {
+    color: #666;
+}
+
+.table-schema tr td:nth-child(1) {
+    width: 30%;
+}
+.table-schema tr td:nth-child(2) {
+    width: 20%;
+}
+.table-schema tr td:nth-child(3) {
+    width: 50%;
+}
+
+.main_b {
+    margin: 5px 50px 5px 20px !important;
+    display: inline-block;
+    border-radius: 4px;
+    background-color: #f4511e;
+    border: none;
+    color: white;
+    text-align: center;
+    font-size: px;
+    padding: 15px;
+    width: 100px;
+    transition: all 0.5s;
+    cursor: pointer;
+    margin: 5px;
+  }
+  
+  .main_b span {
+    cursor: pointer;
+    display: inline-block;
+    position: relative;
+    transition: 0.5s;
+  }
+  
+  .main_b span:after {
+    content: '\00bb';
+    position: absolute;
+    opacity: 0;
+    top: 0;
+    right: -20px;
+    transition: 0.5s;
+  }
+  
+  .main_b:hover span {
+    padding-right: 25px;
+    color: white;
+  }
+  
+  .main_b:hover span:after {
+    opacity: 1;
+    right: 0;
+  }
+  
+  a.nav-link {
+      margin: 10px 20px;
+  }
